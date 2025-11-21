@@ -4,6 +4,7 @@ from scheduler.models import DailySlot
 from services.models import Child_services
 from django.utils import timezone
 from datetime import timedelta
+from decimal import Decimal
 
 
 # Slot reservation duration before admin approval
@@ -71,13 +72,18 @@ class Booking(models.Model):
     gst_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     grand_total = models.DecimalField(max_digits=12, decimal_places=2, default=0)
 
+    from decimal import Decimal
+
     def calculate_totals(self):
         base = sum([item.service.price for item in self.services.all()])
-        gst = (base * (self.gst_percent / 100))
+        gst_rate = self.gst_percent / Decimal(100)
+        gst = base * gst_rate
+
         self.total_price = base
         self.gst_amount = gst
         self.grand_total = base + gst
         self.save(update_fields=['total_price', 'gst_amount', 'grand_total'])
+
 
     def __str__(self):
         return f"Booking #{self.id} - {self.user.username} ({self.status})"

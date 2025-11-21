@@ -34,15 +34,15 @@ class DailySlotSerializer(serializers.ModelSerializer):
             'booked_by', 'booked_service'
         ]
 
-    def get_booked_service(self, obj):
-        if obj.booked_service:
-            return {
-                "id": obj.booked_service.id,
-                "name": obj.booked_service.child_service_name,
-                "duration": obj.booked_service.duration,
-                "price": str(obj.booked_service.price),
-            }
-        return None
+    # def get_booked_service(self, obj):
+    #     if obj.booked_service:
+    #         return {
+    #             "id": obj.booked_service.id,
+    #             "name": obj.booked_service.child_service_name,
+    #             "duration": obj.booked_service.duration,
+    #             "price": str(obj.booked_service.price),
+    #         }
+    #     return None
 
 
 

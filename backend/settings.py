@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'services',
     'scheduler',
     'django_filters',
-    'booking',
+    'booking.apps.BookingConfig',
 ]
 CELERY_BEAT_SCHEDULE = {
     "generate-slots-daily": {
@@ -211,3 +211,12 @@ CORS_EXPOSE_HEADERS = [
     "Content-Length",
     "Content-Type",
 ]
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'santhoshvijaypeter@gmail.com'
+EMAIL_HOST_PASSWORD = 'lpxq elig jeoj ccsr'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

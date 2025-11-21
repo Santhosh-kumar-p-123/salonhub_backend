@@ -4,7 +4,8 @@ from .views import (
     SlotMasterViewSet,
     HolidayViewSet,
     WorkingDayViewSet,
-    DailySlotListAPIView
+    DailySlotListAPIView,
+    AvailableDatesAPIView,
 )
 
 router = DefaultRouter()
@@ -15,4 +16,5 @@ router.register(r'workingdays', WorkingDayViewSet, basename='workingday')
 urlpatterns = [
     path('', include(router.urls)),
     path('slots/', DailySlotListAPIView.as_view(), name='daily-slots'),
+    path('available-dates/', AvailableDatesAPIView.as_view(), name='available-dates'),
 ]
