@@ -17,16 +17,30 @@ from booking.helpers import compute_required_slot_master_ids  # you indicated th
 class CartAddView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
-    def post(self, request):
-        service_id = request.data.get("service_id")
-        service = get_object_or_404(Child_services, id=service_id)
+    def post(self, request, service_id):
+        # Validate service exists
+        try:
+            service = Child_services.objects.get(id=service_id)
+        except Child_services.DoesNotExist:
+            return Response({"detail": f"Child service {service_id} not found"}, status=404)
 
-        item, created = CartItem.objects.get_or_create(user=request.user, service=service)
+        # Add or increase quantity
+        item, created = CartItem.objects.get_or_create(
+            user=request.user,
+            service=service
+        )
+
         if not created:
             item.quantity += 1
             item.save()
 
-        return Response({"detail": "Service added to cart"}, status=201)
+        return Response({
+            "detail": f"{service.child_service_name} added to cart",
+            "service_id": service.id,
+            "quantity": item.quantity
+        }, status=201)
+
+
 
 
 class CartView(APIView):

@@ -68,3 +68,8 @@ yarn.lock
 .env
 *.env
 .env.*
+
+
+celerybeat-schedule
+celerybeat-schedule-shm
+celerybeat.pid

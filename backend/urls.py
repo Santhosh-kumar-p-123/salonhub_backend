@@ -35,7 +35,7 @@ def home(request):
 urlpatterns = [
     path('', home), 
     path('api/auth/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-     path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
     path('api/auth/', include('accounts.urls')),
     path('api/services/', include('services.urls')), 
      # Scheduler app endpoints (SlotMaster, Holiday, WorkingDays, DailySlots)
