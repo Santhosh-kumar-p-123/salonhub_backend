@@ -18,7 +18,7 @@ from .serializers import (
 # -------------------------
 class UserGenderListView(APIView):
     permission_classes = [AllowAny]
-
+ 
     def get(self, request):
         genders = Gender.objects.all()
         serializer = GenderSerializer(genders, many=True)

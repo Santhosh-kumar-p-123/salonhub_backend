@@ -109,8 +109,3 @@ class AvailableDatesAPIView(APIView):
                 available_dates.append(str(current_date))
 
         return Response({"available_dates": available_dates})
-
-
-
-
-

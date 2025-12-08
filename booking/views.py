@@ -103,6 +103,15 @@ def compute_required_slot_master_ids(start_slot_master, ordered_slot_masters_qs,
 class CheckoutView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
+    def get(self, request):
+        booking = Booking.objects.filter(user=request.user).order_by('-created_at').first()
+
+        if not booking:
+              return Response({"detail": "No booking found"}, status=404)
+
+        serializer = BookingSerializer(booking)
+        return Response(serializer.data, status=200)
+
     def post(self, request):
         serializer = CreateBookingSerializer(data=request.data, context={"request": request})
         serializer.is_valid(raise_exception=True)
