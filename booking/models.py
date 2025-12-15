@@ -74,11 +74,12 @@ class Booking(models.Model):
 
     from decimal import Decimal
 
+   
     def calculate_totals(self):
         base = sum(
-             item.service.price * item.quantity
+            item.service.price
             for item in self.services.all()
-           )
+        )
 
         gst_rate = self.gst_percent / Decimal("100")
         gst = base * gst_rate
