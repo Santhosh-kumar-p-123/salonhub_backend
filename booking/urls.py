@@ -10,7 +10,12 @@ from .views import (
     AdminNotificationMarkReadView,
     AdminbookingStatsView,
     AdminSalesStatsView,
-    AdminCustomerTrendView
+    AdminCustomerTrendView,
+    AdminAnalyticsSummaryView,
+    AdminMonthlyRevenueView,
+    AdminServiceDistributionView,
+    AdminAppointmentsStatsView,
+    AdminNewCustomersView,
 )
 
 urlpatterns = [
@@ -38,5 +43,12 @@ urlpatterns = [
     path("admin/orders/stats/", AdminbookingStatsView.as_view()),
      path("admin/sales/stats/", AdminSalesStatsView.as_view()),
      path("admin/customers/trend/", AdminCustomerTrendView.as_view()),
+
+     # Analytics Overview
+     path("admin/analytics/summary/", AdminAnalyticsSummaryView.as_view()),
+    path("admin/analytics/monthly-revenue/", AdminMonthlyRevenueView.as_view()),
+    path("admin/analytics/service-distribution/", AdminServiceDistributionView.as_view()),
+    path("admin/analytics/appointments/", AdminAppointmentsStatsView.as_view()),
+    path("admin/analytics/new-customers/", AdminNewCustomersView.as_view()),
 ]
 

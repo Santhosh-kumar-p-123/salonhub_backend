@@ -464,6 +464,126 @@ class AdminCustomerTrendView(APIView):
 
 
 
+class AdminAnalyticsSummaryView(APIView):
+    permission_classes = [permissions.IsAdminUser]
+
+    def get(self, request):
+        completed_bookings = Booking.objects.filter(status="completed")
+
+        # Total Revenue
+        total_revenue = completed_bookings.aggregate(
+            total=Sum("grand_total")
+        )["total"] or Decimal("0.00")
+
+        # Appointments (completed bookings)
+        appointments = completed_bookings.count()
+
+        # New Customers (distinct users who completed at least one booking)
+        new_customers = (
+            completed_bookings
+            .values("user")
+            .distinct()
+            .count()
+        )
+
+        return Response({
+            "total_revenue": float(total_revenue),
+            "appointments": appointments,
+            "new_customers": new_customers
+        }, status=200)
+
+# MONTHLY REVENUE (LINE CHART)
+
+
+class AdminMonthlyRevenueView(APIView):
+    permission_classes = [permissions.IsAdminUser]
+
+    def get(self, request):
+        qs = (
+            Booking.objects
+            .filter(status="completed")
+            .annotate(month=TruncMonth("created_at"))
+            .values("month")
+            .annotate(total=Sum("grand_total"))
+            .order_by("month")
+        )
+
+        labels = []
+        data = []
+
+        for row in qs:
+            labels.append(row["month"].strftime("%b"))
+            data.append(float(row["total"]))
+
+        return Response({
+            "labels": labels,
+            "data": data
+        })
+
+
+# SERVICE DISTRIBUTION (PIE CHART)
+
+class AdminServiceDistributionView(APIView):
+    permission_classes = [permissions.IsAdminUser]
+
+    def get(self, request):
+        qs = (
+            BookingService.objects
+            .filter(booking__status="completed")
+            .values("service__child_service_name")
+            .annotate(count=Count("id"))
+        )
+
+        labels = []
+        data = []
+
+        for row in qs:
+            labels.append(row["service__child_service_name"])
+            data.append(row["count"])
+
+        return Response({
+            "labels": labels,
+            "data": data
+        })
+
+
+# APPOINTMENTS STATS
+
+class AdminAppointmentsStatsView(APIView):
+    permission_classes = [permissions.IsAdminUser]
+
+    def get(self, request):
+        total = Booking.objects.count()
+        completed = Booking.objects.filter(status="completed").count()
+        pending = Booking.objects.filter(status="pending").count()
+
+        return Response({
+            "total": total,
+            "completed": completed,
+            "pending": pending
+        })
+
+
+
+# NEW CUSTOMERS (THIS MONTH)
+
+class AdminNewCustomersView(APIView):
+    permission_classes = [permissions.IsAdminUser]
+
+    def get(self, request):
+        now = timezone.now()
+        start_month = now.replace(day=1)
+
+        new_customers = (
+            User.objects
+            .filter(role__name="user", date_joined__gte=start_month)
+            .count()
+        )
+
+        return Response({
+            "new_customers": new_customers
+        })
+
 
 
 
