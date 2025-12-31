@@ -13,11 +13,13 @@ django-cors-headers==4.9.0
 django-filter==25.2
 djangorestframework==3.16.1
 djangorestframework_simplejwt==5.5.1
+gunicorn==23.0.0
 idna==3.11
 kombu==5.5.4
 packaging==25.0
 pillow==12.0.0
 prompt_toolkit==3.0.52
+psycopg2-binary==2.9.11
 PyJWT==2.10.1
 python-dateutil==2.9.0.post0
 redis==7.1.0
@@ -28,3 +30,5 @@ tzdata==2025.2
 urllib3==2.5.0
 vine==5.1.0
 wcwidth==0.2.14
+django-celery-beat
+gunicorn
