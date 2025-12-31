@@ -210,7 +210,7 @@ CORS_ALLOW_CREDENTIALS = True
 #     "http://127.0.0.1:3000",
 #     "https://adorable-cactus-8090dc.netlify.app", ]
 CORS_ALLOWED_ORIGINS = [
-    "https://bejewelled-buttercream-967e16.netlify.app/"
+    "https://bejewelled-buttercream-967e16.netlify.app"
 ]
 
 CORS_ALLOW_METHODS = [
