@@ -72,7 +72,6 @@ class DailySlotListAPIView(generics.ListAPIView):
 
         if not date_str:
             return Response({"message": "date parameter is required"}, status=400)
-
         return super().list(request, *args, **kwargs)
 
 

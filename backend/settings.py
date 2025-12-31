@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 from datetime import timedelta
 from celery.schedules import crontab 
+import os
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -31,7 +32,7 @@ SECRET_KEY = 'django-insecure-b!qq(8456sp6j)@6tg&c5yc$hgj0x*gb+0vtfd@3_ipb#$i&s_
 
 ALLOWED_HOSTS = ['*']
 
-DEBUG = True
+DEBUG = False
 
 
 # Application definition
@@ -52,6 +53,7 @@ INSTALLED_APPS = [
     'scheduler',
     'django_filters',
     'booking.apps.BookingConfig',
+    'django_celery_beat',
 ]
 CELERY_BEAT_SCHEDULE = {
     "generate-slots-daily": {
@@ -65,8 +67,8 @@ CELERY_BEAT_SCHEDULE = {
     },
 }
 
-CELERY_BROKER_URL = "redis://127.0.0.1:6379/0"
-CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379/1"
+CELERY_BROKER_URL = "redis://redis:6379/0"
+CELERY_RESULT_BACKEND = "redis://redis:6379/0"
 
 # Optional but recommended:
 CELERY_ACCEPT_CONTENT = ["application/json"]
@@ -145,6 +147,17 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.environ.get('DB_NAME'),
+#         'USER': os.environ.get('DB_USER'),
+#         'PASSWORD': os.environ.get('DB_PASSWORD'),
+#         'HOST': os.environ.get('DB_HOST'),
+#         'PORT': os.environ.get('DB_PORT'),
+#     }
+# }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -170,7 +183,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -192,9 +205,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:3000",   
+#     "http://127.0.0.1:3000",
+#     "https://adorable-cactus-8090dc.netlify.app", ]
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",   
-    "http://127.0.0.1:3000", ]
+    "https://bejewelled-buttercream-967e16.netlify.app/"
+]
 
 CORS_ALLOW_METHODS = [
     "DELETE",

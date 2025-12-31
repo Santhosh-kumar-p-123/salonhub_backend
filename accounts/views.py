@@ -26,7 +26,6 @@ def get_tokens_for_user(user):
 #USER REGISTRATION & LOGIN
 
 class UserRegisterView(APIView):
-    permission_classes = [permissions.AllowAny]
 
     def post(self, request):
         
@@ -106,7 +105,7 @@ class LogoutView(APIView):
 
 #ADMIN REGISTRATION & LOGIN
 class AdminRegisterView(APIView):
-    permission_classes = [permissions.AllowAny]
+ 
 
     def post(self, request):
         # data['role'] = 'admin'    
