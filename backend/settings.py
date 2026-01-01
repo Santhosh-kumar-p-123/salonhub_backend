@@ -218,6 +218,11 @@ CSRF_TRUSTED_ORIGINS = [
     "https://*.netlify.app"
 ]
 
+import os
+
+CELERY_BROKER_URL = os.getenv("REDIS_URL") or os.getenv("REDIS_TLS_URL")
+CELERY_RESULT_BACKEND = CELERY_BROKER_URL
+
 
 CORS_ALLOW_CREDENTIALS = True
 
