@@ -140,23 +140,23 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 #         'PORT': '5433',
 #     }
 # }
-import dj_database_url
-import os
-
-DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv("DATABASE_URL"),
-        conn_max_age=600,
-        ssl_require=True
-    )
-}
+# import dj_database_url
+# import os
 
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
+#     'default': dj_database_url.config(
+#         default=os.getenv("DATABASE_URL"),
+#         conn_max_age=600,
+#         ssl_require=True
+#     )
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 # DATABASES = {
 #     'default': {
@@ -232,6 +232,7 @@ CORS_ALLOW_CREDENTIALS = True
 #     "https://adorable-cactus-8090dc.netlify.app", ]
 CORS_ALLOWED_ORIGINS = [
     "https://bejewelled-buttercream-967e16.netlify.app",
+    "https://gentle-tartufo-b3e9c2.netlify.app",
 ]
 
 CORS_ALLOW_METHODS = [
@@ -260,10 +261,10 @@ CORS_EXPOSE_HEADERS = [
 ]
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'santhoshvijaypeter@gmail.com'
-EMAIL_HOST_PASSWORD = 'lpxq elig jeoj ccsr'
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'santhoshvijaypeter@gmail.com'
+# EMAIL_HOST_PASSWORD = 'lpxq elig jeoj ccsr'
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
